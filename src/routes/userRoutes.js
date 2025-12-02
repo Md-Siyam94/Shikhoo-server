@@ -22,7 +22,13 @@ const router = express.Router()
         return res.json(users)
     })
 
-    // get 
+    // get single user
+    router.get('/:email', async(req, res)=>{
+        const email = req.params.email;
+        const filter = {email: email};
+        const user = await User.findOne(filter);
+        res.json(user)
+    })
 
   
 
