@@ -46,8 +46,13 @@ const router = express.Router();
         return res.json(singleCourse)
     })
 
-
-
+    // delete single course
+    router.delete("/:id", async(req, res)=>{
+        const id = req.params.id;
+        const filter = {_id: id};
+        const deleteCourse = await Course.deleteOne(filter);
+        return res.json(deleteCourse)
+    })
 
 
 module.exports = router
