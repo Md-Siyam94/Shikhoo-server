@@ -36,6 +36,21 @@ const router = express.Router()
         res.json(user)
     })
 
+    // is admin
+    router.get('/admin/:email', async(req, res)=>{
+        const email = req.params.email;
+        if(!email === req.decoded?.email){
+            return res.status(403).json({message: "Unauthorized access"})
+        }
+        const filter = {email: email};
+        const user = await User.findOne(filter);
+        let isAdmin = false;
+        if(user){
+            isAdmin = user?.role == 'admin'
+        }
+        res.json(isAdmin)
+    })
+
   
 
 module.exports = router

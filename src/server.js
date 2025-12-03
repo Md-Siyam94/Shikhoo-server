@@ -51,7 +51,7 @@ const verifyToken = (req, res, next) => {
 }
 
 
-app.use('/users', userRoutes)
+app.use('/users',verifyToken, userRoutes)
 app.use('/courses',verifyToken, courseRoutes)
 
 
