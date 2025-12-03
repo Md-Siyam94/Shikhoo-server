@@ -24,6 +24,16 @@ const courseSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
+   batch: {
+        type: Number,
+        required: true,
+      
+    },
+   thumbnail: {
+        type: String,
+        required: true,
+       
+    },
    instructor: {
         type: String,
         required: true,

@@ -19,7 +19,22 @@ const router = express.Router();
 
     // get all courses
     router.get("/", async (req, res) => {
+        
         const courses = await Course.find();
+        return res.json(courses)
+    })
+
+    // get all courses
+    router.get("/search", async (req, res) => {
+        const search = req.query.q
+        // console.log(search);
+        const courses = await Course.find({
+        $or: [
+          { title: { $regex: search, $options: "i" } },
+          { description: { $regex: search, $options: "i" } },
+          { instructor: { $regex: search, $options: "i" } },
+        ],
+      });
         return res.json(courses)
     })
 

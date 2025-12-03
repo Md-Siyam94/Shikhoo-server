@@ -1,5 +1,7 @@
 const express = require('express');
 const User = require('../models/User.model');
+const bcrypt = require('bcrypt');
+
 const router = express.Router()
 
 
@@ -7,6 +9,10 @@ const router = express.Router()
   // post user
     router.post('/', async(req, res)=>{
         const user = new User(req.body);
+        const password = user?.password;
+        const soltRound = 10;
+        const hashedPass = await bcrypt.hash(password, soltRound)
+        user.password = hashedPass
         const filter = {email: user?.email}
         const existingUser = await User.findOne(filter);
         if(existingUser){
