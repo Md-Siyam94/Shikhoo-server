@@ -25,6 +25,12 @@ router.get("/", async (req, res) => {
 })
 
 // get enrolled coures by user
+router.get('/:email', async(req, res)=>{
+    const email = req.params.email;
+    const query = {email: email}
+    const enrolledCourse = await EnrollCourse.find(query);
+    return res.json(enrolledCourse)
 
+})
 
 module.exports = router

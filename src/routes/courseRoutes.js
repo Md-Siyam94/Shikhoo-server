@@ -54,12 +54,34 @@ router.get('/:id', async (req, res) => {
     return res.json(singleCourse);
 })
 
+// update course
+router.patch("/update/:id", async (req, res) => {
+    const id = req.params.id;
+    const query = { _id: id };
+    const updatedData = new Course(req.body);
+    const result = await Course.findOneAndUpdate(query, {
+        $set: {
+            title: updatedData?.title,
+            instructor: updatedData?.instructor,
+            description: updatedData?.description,
+            modules: updatedData?.modules,
+            price: updatedData?.price,
+            batch: updatedData?.batch,
+            syllabus: updatedData?.syllabus,
+
+        },
+    }, { new: true }
+    )
+    return res.json({success: true , data: result})
+
+})
+
 // delete single course
 router.delete("/:id", async (req, res) => {
     const id = req.params.id;
     const filter = { _id: id };
     const deleteCourse = await Course.deleteOne(filter);
-    return res.json(deleteCourse);
+    return res.json({ success: true, data: deleteCourse });
 })
 
 
