@@ -2,9 +2,9 @@ const express = require('express');
 const User = require('../models/User.model');
 const bcrypt = require('bcrypt');
 const sendEmail = require('../utils/email');
+const verifyToken = require('../middleweres/verifyToken');
+
 const router = express.Router()
-
-
 
 // post user
 router.post('/', async (req, res) => {
@@ -34,7 +34,7 @@ router.post('/', async (req, res) => {
 })
 
 // get all users
-router.get('/', async (req, res) => {
+router.get('/', verifyToken, async (req, res) => {
     const users = await User.find();
     return res.json(users)
 })
@@ -50,9 +50,9 @@ router.get('/:email', async (req, res) => {
 // is admin
 router.get('/admin/:email', async (req, res) => {
     const email = req.params.email;
-    if (!email === req.decoded?.email) {
-        return res.status(403).json({ message: "Unauthorized access" })
-    }
+    // if (!email === req.decoded?.email) {
+    //     return res.status(403).json({ message: "Unauthorized access" })
+    // }
     const filter = { email: email };
     const user = await User.findOne(filter);
     let isAdmin = false;
