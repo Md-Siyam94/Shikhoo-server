@@ -1,11 +1,12 @@
 const express = require('express');
 const EnrollCourse = require('../models/EnrollCourse.model');
+const verifyToken = require('../middleweres/verifyToken');
 
 
 const router = express.Router();
 
 // post enrolled course
-router.post("/", async (req, res) => {
+router.post("/",verifyToken, async (req, res) => {
     const enrolledCourse = new EnrollCourse(req.body)
     const existingEnrolled = await EnrollCourse.findOne({
         email: enrolledCourse?.email,

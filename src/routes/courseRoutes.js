@@ -1,10 +1,12 @@
 const express = require('express');
 const Course = require('../models/Course.model');
+const VerifyToken = require('../middleweres/verifyToken');
+const verifyToken = require('../middleweres/verifyToken');
 
 const router = express.Router();
 
 // post course
-router.post("/", async (req, res) => {
+router.post("/",verifyToken, async (req, res) => {
     const course = new Course(req.body)
     const existingCourse = await Course.findOne({
         title: course?.title,
@@ -55,7 +57,7 @@ router.get('/:id', async (req, res) => {
 })
 
 // update course
-router.patch("/update/:id", async (req, res) => {
+router.patch("/update/:id",verifyToken, async (req, res) => {
     const id = req.params.id;
     const query = { _id: id };
     const updatedData = new Course(req.body);
@@ -77,7 +79,7 @@ router.patch("/update/:id", async (req, res) => {
 })
 
 // delete single course
-router.delete("/:id", async (req, res) => {
+router.delete("/:id",verifyToken, async (req, res) => {
     const id = req.params.id;
     const filter = { _id: id };
     const deleteCourse = await Course.deleteOne(filter);

@@ -24,7 +24,9 @@ mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_KEY}@clu
 const userRoutes = require('./src/routes/userRoutes');
 const courseRoutes = require('./src/routes/courseRoutes');
 const jwtRoutes = require('./src/routes/jwtRoutes');
-const enrollCourseRoutes  = require('./src/routes/enrollCourseRoutes');
+const enrollCourseRoutes = require('./src/routes/enrollCourseRoutes');
+const User = require('./src/models/User.model');
+const Course = require('./src/models/Course.model');
 
 
 
@@ -32,6 +34,20 @@ app.use('/users', userRoutes)
 app.use('/courses', courseRoutes)
 app.use('/enrolled-courses', enrollCourseRoutes)
 app.use('/jwt', jwtRoutes)
+
+
+
+// aggrigation
+app.get("/admin-states", async (req, res) => {
+  const totalUsers = await User.estimatedDocumentCount()
+  const totalCourses = await Course.estimatedDocumentCount()
+
+
+  return res.json({
+    totalCourses,
+    totalUsers,
+  })
+})
 
 
 app.listen(port, () => {
