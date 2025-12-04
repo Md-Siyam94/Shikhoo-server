@@ -44,7 +44,7 @@ router.get('/:email', async (req, res) => {
     const email = req.params.email;
     const filter = { email: email };
     const user = await User.findOne(filter);
-    res.json(user)
+    return res.json(user)
 })
 
 // is admin
@@ -59,7 +59,7 @@ router.get('/admin/:email', async (req, res) => {
     if (user) {
         isAdmin = user?.role == 'admin'
     }
-    res.json(isAdmin)
+    return res.json(isAdmin)
 })
 
 
