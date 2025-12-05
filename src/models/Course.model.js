@@ -3,14 +3,25 @@ const mongoose = require('mongoose');
 const vidoeSchema = new mongoose.Schema({
     videoTitle: {
         type: String,
-        required: true,
         trim: true
     },
     videoUrl: {
         type: String,
-        required: true,
         trim: true
-    }
+    },
+    assignment: {
+        type: String,
+    },
+    mark: {
+        type: String,
+    },
+    isCompleted: {
+        type: Boolean,
+        required: true,
+        default: false,
+        enum: [true, false]
+    },
+    
 })
 
 const courseSchema = new mongoose.Schema({

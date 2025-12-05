@@ -10,9 +10,9 @@ Built with modern web technologies, Shikhoo focuses on clean user experience, po
 ## .env List
 
 EMAIL_USER=siyam942404@gmail.com
-EMAIL_PASS=cjix vrwp qcmn xxfg
+EMAIL_PASS=cjix vrwp qcmn xxzf
 DB_USER=shikhooDB
-DB_KEY=puAmTw5anYwBlsdv
-ACCESS_TOKEN_SECRET=91124226312ba900b1g9ed7e840b21fe1d2c04db4cd262557bd1701c96d7cb7ac5ce32dca9174c867b310ff5c64ed97dc8bda1111bf7dbc2183c5e1fb03b23f5
+DB_KEY=puAmTw5anYwBlsSm
+ACCESS_TOKEN_SECRET=91124226312ba900b1f9ed7e840b21fe1d2c04db4cd262557bd1701c96d7cb7ac5ce32dca9174c867b310ff5c64ed97dc8bda1111bf7dbc2183c5e1fb03b23f5
 
 

@@ -44,6 +44,24 @@ const enrollSchema = new mongoose.Schema({
         required: true,
        
     },
+    modules: [
+        {
+            _id: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Course.modules'
+            },
+            videoTitle: String,
+            videoUrl: String,
+            assignment: String,
+            mark: String,
+            isCompleted: {
+                type: Boolean,
+                default: false,
+                enum: [true, false]
+            }
+        }
+    ]
+      
 },
 {timestamps: true}
 )

@@ -6,7 +6,7 @@ const verifyToken = require('../middleweres/verifyToken');
 const router = express.Router();
 
 // post course
-router.post("/",verifyToken, async (req, res) => {
+router.post("/", verifyToken, async (req, res) => {
     const course = new Course(req.body)
     const existingCourse = await Course.findOne({
         title: course?.title,
@@ -57,7 +57,7 @@ router.get('/:id', async (req, res) => {
 })
 
 // update course
-router.patch("/update/:id",verifyToken, async (req, res) => {
+router.patch("/update/:id", verifyToken, async (req, res) => {
     const id = req.params.id;
     const query = { _id: id };
     const updatedData = new Course(req.body);
@@ -74,12 +74,22 @@ router.patch("/update/:id",verifyToken, async (req, res) => {
         },
     }, { new: true }
     )
-    return res.json({success: true , data: result})
+    return res.json({ success: true, data: result })
+
+})
+
+router.put("/update/:courseId/:moduleId", async (req, res) => {
+    const { courseId, moduleId } = req.params;
+    const result = await Course.updateOne(
+        { _id: courseId, "modules._id": moduleId },
+        { $set: { "modules.$.isCompleted": true } }
+    );
+    return res.json({success: true, data: result})
 
 })
 
 // delete single course
-router.delete("/:id",verifyToken, async (req, res) => {
+router.delete("/:id", verifyToken, async (req, res) => {
     const id = req.params.id;
     const filter = { _id: id };
     const deleteCourse = await Course.deleteOne(filter);
